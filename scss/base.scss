@@ -1,0 +1,9 @@
+@use "./abstracts/colors";
+
+body{
+    min-height: 100vh;
+    font-size: 2rem;
+    background: linear-gradient(to bottom right, #6441A4, 30%,#392E5C);
+    display: flex;
+    padding: 3rem;
+}

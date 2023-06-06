@@ -1,0 +1,9 @@
+@use "./abstracts/reset";
+@use "./base.scss";
+@use "./mainSection/mainSection.scss";
+@use "./commentSection/commentSection.scss";
+@use "./asideSection/asideSection.scss";
+@use "./commentPlacer/commentPlacer.scss";
+
+
+@use "./abstracts/mediaqueries";

@@ -1,0 +1,32 @@
+.commentSection{
+    height: 100%;
+    width: 90%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+
+    &__section{
+        background:#6f3eb9;
+        height: 7rem;
+        width: 59%;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        &__circle{
+            width: 6rem;
+            height: 6rem;
+            background: white;
+            border-radius: 50%;
+            border: solid black 0.2rem;
+        }
+
+        &__title{
+            font-size: 15px;
+        }
+    }
+}
