@@ -159,7 +159,7 @@ class Video {
         this.videoElement = document.createElement("video");
         this.videoElement.classList.add("mainSection__videoWrapper__video");
         this.videoElement.setAttribute("controls", true);
-        this.videoElement.setAttribute("src", "video/video1.mp4");
+        this.videoElement.setAttribute("src", "video/video3.mp4");
 
         this.Main.yubtub.renderer.render("#js--MainSection", this.videoElement);
 
