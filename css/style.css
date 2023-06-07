@@ -40,7 +40,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #FFFFFF;
+  background: #6f3eb9;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   gap: 2rem;
@@ -156,6 +156,44 @@ body {
   }
   .asideSection__video {
     width: 40%;
+  }
+}
+@media screen and (max-width: 47.1875rem) {
+  .mainSection__videoWrapper__section__Wrapper__Arrow {
+    font-size: 3rem;
+    color: white;
+  }
+  .mainSection__videoWrapper__section__Wrapper__Star {
+    font-size: 3rem;
+    color: white;
+  }
+  .mainSection__videoWrapper__section__title {
+    font-size: 1rem;
+  }
+  .mainSection__videoWrapper__section__Wrapper--2 {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 30.875rem) {
+  .mainSection__videoWrapper__section__circleFigure {
+    width: 3rem;
+    height: 3rem;
+    border: solid black 0.2rem;
+    background: white;
+    border-radius: 50%;
+  }
+  .commentSection__section__circle {
+    width: 3rem;
+    height: 3rem;
+    background: white;
+    border-radius: 50%;
+    border: solid black 0.2rem;
+  }
+  .mainSection__videoWrapper__section__Wrapper__Arrow {
+    font-size: 2rem;
+  }
+  .mainSection__videoWrapper__section__Wrapper__Star {
+    font-size: 2rem;
   }
 }
 
