@@ -12,7 +12,7 @@ class App {
             link: 2
         },
         {
-            id: 3,
+            id: 2,
             video: "video3.mp4",
             link: 0
         },
@@ -32,7 +32,7 @@ class Switcher {
     constructor(app, data) {
         this.app = app;
         this.data = data;
-        this.yubtub = new Yubtub(this.app, data[this.default]);
+        this.yubtub = new Yubtub(this.app, data[0]);
         this.cleaner = new Cleaner();
     }
 
@@ -57,7 +57,7 @@ class Yubtub {
     constructor(app, data) {
         this.app = app;
         this.renderer = new Renderer();
-        this.main = new Main(this);
+        this.main = new Main(this, data);
         this.aside = new Aside(this, data);
     }
 }
@@ -68,16 +68,14 @@ class Main{
     Comments;
     mainSectionElement;
 
-    constructor(yubtub) {
+    constructor(yubtub, data) {
         this.yubtub = yubtub;
         this.mainSectionElement = document.createElement("main");
         this.mainSectionElement.classList.add("mainSection");
         this.yubtub.renderer.render("body", this.mainSectionElement);
 
-        this.video = new Video(this);
+        this.video = new Video(this, this.yubtub.app.data[2]); // changing the video to start at index 1
         this.comments = new Comments(this);
-
-
     }
 }
 
@@ -148,8 +146,9 @@ class Video {
     StarIconElement;
     ArrowIconElement;
 
-    constructor(Main) {
+    constructor(Main, data) {
         this.Main = Main;
+        this.data = data;
         this.SectionElement = document.createElement("section");
         this.SectionElement.classList.add("mainSection__videoWrapper");
         this.SectionElement.id = "js--MainSection";
@@ -159,8 +158,7 @@ class Video {
         this.videoElement = document.createElement("video");
         this.videoElement.classList.add("mainSection__videoWrapper__video");
         this.videoElement.setAttribute("controls", true);
-        this.videoElement.setAttribute("src", "video/video3.mp4");
-
+        this.videoElement.src = `./video/${this.Main.yubtub.app.data[2].video}`; // changing the video to start at index 1
         this.Main.yubtub.renderer.render("#js--MainSection", this.videoElement);
 
         this.VideoSectionElement = document.createElement("section");
@@ -200,8 +198,14 @@ class Video {
 
         this.Main.yubtub.renderer.render("#js--VideoSection", secondWrapperElement);
     }
-}
 
+    videoClicked = () => {
+        const currentVideoIndex = this.data.id; // Get the current video index
+        const nextVideoIndex = (currentVideoIndex + 1) % this.Main.yubtub.app.data.length; // Calculate the index of the next video (circular)
+
+        this.Main.yubtub.app.switcher.switch(nextVideoIndex);
+    };
+}
 
 class Aside {
     yubtub;
@@ -220,6 +224,7 @@ class Aside {
 class NextVideo {
     aside;
     htmlElements;
+    data;
 
     constructor(aside, data) {
         this.aside = aside;
@@ -231,16 +236,17 @@ class NextVideo {
             videoElement.classList = `asideSection__video asideSection__video--${i}`;
             videoElement.src = `./video/${data.video}`;
             this.aside.yubtub.renderer.render("aside", videoElement);
-            videoElement.onclick = this.videoClicked;
+            videoElement.onclick = () => this.videoClicked(data.link);
 
             this.htmlElements.push(videoElement);
         }
     }
 
-    videoClicked = () => {
-        this.aside.yubtub.app.switcher.switch(this.data.link);
+    videoClicked = (link) => {
+        this.aside.yubtub.app.switcher.switch(link);
     }
 }
+
 
 class Renderer {
     render(whereToRender, whatToRender) {
@@ -249,4 +255,3 @@ class Renderer {
 }
 
 const app = new App();
-console.log(app);
