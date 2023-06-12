@@ -19,7 +19,7 @@ class App {
     ]
 
     constructor() {
-        this.switcher = new Switcher(this, this.data);
+        this.switcher = new Switcher(this, this.data); // Geeft hele data mee aan switcher
     }
 }
 
@@ -32,13 +32,14 @@ class Switcher {
     constructor(app, data) {
         this.app = app;
         this.data = data;
-        this.yubtub = new Yubtub(this.app, data[0]);
+        this.yubtub = new Yubtub(this.app, data[0]); // Geeft video1 data mee aan Yubtub.
         this.cleaner = new Cleaner();
     }
 
     switch(link) {
         this.cleaner.clean("body");
-        this.yubtub = new Yubtub(this.app, this.data[link]);
+        this.yubtub = new Yubtub(this.app, this.data[link]); // Update de video aan de hand van zijn Link.
+        console.log(this.data[link]);
     }
 }
 
@@ -70,11 +71,12 @@ class Main{
 
     constructor(yubtub, data) {
         this.yubtub = yubtub;
+        this.data = data;
         this.mainSectionElement = document.createElement("main");
         this.mainSectionElement.classList.add("mainSection");
         this.yubtub.renderer.render("body", this.mainSectionElement);
 
-        this.video = new Video(this, this.yubtub.app.data[2]); // changing the video to start at index 1
+        this.video = new Video(this, this.data); // Geeft data mee aan video
         this.comments = new Comments(this);
     }
 }
@@ -158,7 +160,7 @@ class Video {
         this.videoElement = document.createElement("video");
         this.videoElement.classList.add("mainSection__videoWrapper__video");
         this.videoElement.setAttribute("controls", true);
-        this.videoElement.src = `./video/${this.Main.yubtub.app.data[2].video}`; // changing the video to start at index 1
+        this.videoElement.src = `./video/${data.video}`; // Deze moet updaten wanneer er geclicked word..
         this.Main.yubtub.renderer.render("#js--MainSection", this.videoElement);
 
         this.VideoSectionElement = document.createElement("section");
@@ -198,13 +200,6 @@ class Video {
 
         this.Main.yubtub.renderer.render("#js--VideoSection", secondWrapperElement);
     }
-
-    videoClicked = () => {
-        const currentVideoIndex = this.data.id; // Get the current video index
-        const nextVideoIndex = (currentVideoIndex + 1) % this.Main.yubtub.app.data.length; // Calculate the index of the next video (circular)
-
-        this.Main.yubtub.app.switcher.switch(nextVideoIndex);
-    };
 }
 
 class Aside {
