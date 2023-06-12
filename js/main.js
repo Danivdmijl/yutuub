@@ -4,16 +4,19 @@ class App {
         {
             id: 0,
             video: "video1.mp4",
+            title: "Mclaren Car Video",
             link: 1
         },
         {
             id: 1,
             video: "video2.mp4",
+            title: "Urus vs Random!",
             link: 2
         },
         {
             id: 2,
             video: "video3.mp4",
+            title: "Ferrari vrooom",
             link: 0
         },
     ]
@@ -157,10 +160,31 @@ class Video {
 
         this.Main.yubtub.renderer.render("main", this.SectionElement);
 
+        let oldvidname = this.data.video;
+        
+        if(this.data.link == 0 )
+        {
+            this.data.video ="video2.mp4"
+            this.data.title ="Urus vs Random!"
+        }
+        if(this.data.link == 1)
+        {
+            this.data.video ="video3.mp4"
+            this.data.title ="Ferrari vrooom"
+        }
+        if(this.data.link == 2)
+        {
+            this.data.video ="video1.mp4"
+            this.data.title ="Mclaren Car Video"
+        }
+
         this.videoElement = document.createElement("video");
         this.videoElement.classList.add("mainSection__videoWrapper__video");
         this.videoElement.setAttribute("controls", true);
         this.videoElement.src = `./video/${data.video}`; // Deze moet updaten wanneer er geclicked word..
+
+        this.data.video = oldvidname;
+
         this.Main.yubtub.renderer.render("#js--MainSection", this.videoElement);
 
         this.VideoSectionElement = document.createElement("section");
@@ -181,7 +205,9 @@ class Video {
         this.Main.yubtub.renderer.render("#js--divIconWrapper", this.CircleFigureElement);
 
         this.TextFigureElement = document.createElement("h3");
-        this.TextFigureElement.innerText = "McLaren Car Video";
+        this.TextFigureElement.innerText = data.title;
+
+
         this.TextFigureElement.classList.add("mainSection__videoWrapper__section__title");
         this.TextFigureElement.id = "js--textFigure";
 
