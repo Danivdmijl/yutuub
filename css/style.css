@@ -132,6 +132,8 @@ body {
     justify-content: center;
     align-items: center;
     padding: 0rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
   .mainSection {
     align-items: center;
@@ -174,10 +176,11 @@ body {
     width: 20%;
   }
 }
-@media screen and (max-width: 30.875rem) {
+@media screen and (max-width: 40rem) {
   .mainSection__videoWrapper__section__circleFigure {
     width: 3rem;
     height: 3rem;
+    aspect-ratio: 1/1;
     border: solid black 0.2rem;
     background: white;
     border-radius: 50%;
@@ -185,6 +188,7 @@ body {
   .commentSection__section__circle {
     width: 3rem;
     height: 3rem;
+    aspect-ratio: 1/1;
     background: white;
     border-radius: 50%;
     border: solid black 0.2rem;

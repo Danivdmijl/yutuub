@@ -84,10 +84,12 @@ class Main{
     }
 }
 
-class Comments{
+class Comments {
     Main;
+    Comment;
     commentSectionElement;
     commentSections;
+    commentsList;
 
     constructor(Main) {
         this.Main = Main;
@@ -97,6 +99,7 @@ class Comments{
         this.Main.yubtub.renderer.render("main", this.commentSectionElement);
 
         this.commentSections = [];
+        this.commentsList = [];
 
         const sectionData = [
             {
@@ -132,13 +135,60 @@ class Comments{
             this.commentSections.push(sectionElement);
         });
 
-        const commentPlacerElement = document.createElement("textarea");
-        commentPlacerElement.classList.add("commentPlacer");
-        commentPlacerElement.setAttribute("placeholder", "Type een comment..");
+        this.Comment = new Comment(this);
+    }
 
-        this.Main.yubtub.renderer.render(".commentSection", commentPlacerElement);
+    addComment(comment) {
+        this.commentsList.push(comment);
+        this.Comment.renderComment(comment);
     }
 }
+
+  
+class Comment {
+    Comments;
+  
+    constructor(Comments) {
+      this.Comments = Comments;
+  
+      const commentPlacerElement = document.createElement("textarea");
+      commentPlacerElement.classList.add("commentPlacer");
+      commentPlacerElement.setAttribute("placeholder", "Type een comment..");
+      commentPlacerElement.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          const commentText = commentPlacerElement.value;
+          this.Comments.addComment(commentText);
+          commentPlacerElement.value = "";
+        }
+      });
+  
+      this.Comments.Main.yubtub.renderer.render(".commentSection", commentPlacerElement);
+    }
+  
+    renderComment(comment) {
+      const commentSectionElement = document.createElement("section");
+      commentSectionElement.classList.add("commentSection__section");
+  
+      const circleElement = document.createElement("figure");
+      circleElement.classList.add("commentSection__section__circle");
+  
+      const commentElement = document.createElement("h3");
+      commentElement.classList.add("comment");
+      commentElement.innerText = comment;
+  
+      commentSectionElement.appendChild(circleElement);
+      commentSectionElement.appendChild(commentElement);
+  
+      const commentPlacerElement = document.querySelector(".commentPlacer");
+      const commentSectionParent = commentPlacerElement.parentNode;
+      commentSectionParent.insertBefore(commentSectionElement, commentPlacerElement);
+  
+      console.log("Comment added:", comment);
+    }
+  }
+  
+
 
 class Video {
     Main;
