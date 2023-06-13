@@ -1,28 +1,30 @@
 class App {
     switcher;
-    data = [
-        {
-            id: 0,
-            video: "video1.mp4",
-            title: "Mclaren Car Video",
-            link: 1
-        },
-        {
-            id: 1,
-            video: "video2.mp4",
-            title: "Urus vs Random!",
-            link: 2
-        },
-        {
-            id: 2,
-            video: "video3.mp4",
-            title: "Ferrari vrooom",
-            link: 0
-        },
-    ]
+    api;
+    data;
 
     constructor() {
-        this.switcher = new Switcher(this, this.data); // Geeft hele data mee aan switcher
+        this.api = new API();
+        this.api.getData("./data/data.json").then((data) => {
+            this.data = data;
+            this.switcher = new Switcher(this, this.data); // Geeft hele data mee aan switcher
+
+        });
+    }
+}
+
+class API{ 
+       
+    async getData(url){
+        let dataToBeReturned = {};
+       await fetch(url).then(
+            (response) => {
+                return response.json();
+            }
+        ).then( (data) => {
+            dataToBeReturned = data;
+        });
+        return dataToBeReturned;
     }
 }
 
@@ -42,7 +44,6 @@ class Switcher {
     switch(link) {
         this.cleaner.clean("body");
         this.yubtub = new Yubtub(this.app, this.data[link]); // Update de video aan de hand van zijn Link.
-        console.log(this.data[link]);
     }
 }
 
@@ -55,6 +56,7 @@ class Cleaner {
 class Yubtub {
     aside;
     Main;
+    header;
     renderer;
     app;
 
@@ -66,7 +68,7 @@ class Yubtub {
     }
 }
 
-class Main{
+class Main {
     yubtub;
     video;
     Comments;
@@ -144,50 +146,48 @@ class Comments {
     }
 }
 
-  
+
 class Comment {
     Comments;
-  
+
     constructor(Comments) {
-      this.Comments = Comments;
-  
-      const commentPlacerElement = document.createElement("textarea");
-      commentPlacerElement.classList.add("commentPlacer");
-      commentPlacerElement.setAttribute("placeholder", "Type een comment..");
-      commentPlacerElement.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          const commentText = commentPlacerElement.value;
-          this.Comments.addComment(commentText);
-          commentPlacerElement.value = "";
-        }
-      });
-  
-      this.Comments.Main.yubtub.renderer.render(".commentSection", commentPlacerElement);
+        this.Comments = Comments;
+
+        const commentPlacerElement = document.createElement("textarea");
+        commentPlacerElement.classList.add("commentPlacer");
+        commentPlacerElement.setAttribute("placeholder", "Type een comment..");
+        commentPlacerElement.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                const commentText = commentPlacerElement.value;
+                this.Comments.addComment(commentText);
+                commentPlacerElement.value = "";
+            }
+        });
+
+        this.Comments.Main.yubtub.renderer.render(".commentSection", commentPlacerElement);
     }
-  
+
     renderComment(comment) {
-      const commentSectionElement = document.createElement("section");
-      commentSectionElement.classList.add("commentSection__section");
-  
-      const circleElement = document.createElement("figure");
-      circleElement.classList.add("commentSection__section__circle");
-  
-      const commentElement = document.createElement("h3");
-      commentElement.classList.add("comment");
-      commentElement.innerText = comment;
-  
-      commentSectionElement.appendChild(circleElement);
-      commentSectionElement.appendChild(commentElement);
-  
-      const commentPlacerElement = document.querySelector(".commentPlacer");
-      const commentSectionParent = commentPlacerElement.parentNode;
-      commentSectionParent.insertBefore(commentSectionElement, commentPlacerElement);
-  
-      console.log("Comment added:", comment);
+        const commentSectionElement = document.createElement("section");
+        commentSectionElement.classList.add("commentSection__section");
+
+        const circleElement = document.createElement("figure");
+        circleElement.classList.add("commentSection__section__circle");
+
+        const commentElement = document.createElement("h3");
+        commentElement.classList.add("comment");
+        commentElement.innerText = comment;
+
+        commentSectionElement.appendChild(circleElement);
+        commentSectionElement.appendChild(commentElement);
+
+        const commentPlacerElement = document.querySelector(".commentPlacer");
+        const commentSectionParent = commentPlacerElement.parentNode;
+        commentSectionParent.insertBefore(commentSectionElement, commentPlacerElement);
     }
-  }
-  
+}
+
 
 
 class Video {
@@ -211,21 +211,18 @@ class Video {
         this.Main.yubtub.renderer.render("main", this.SectionElement);
 
         let oldvidname = this.data.video;
-        
-        if(this.data.link == 0 )
-        {
-            this.data.video ="video2.mp4"
-            this.data.title ="Urus vs Random!"
+
+        if (this.data.link == 0) {
+            this.data.video = "video2.mp4"
+            this.data.title = "Urus vs die ene witte auto"
         }
-        if(this.data.link == 1)
-        {
-            this.data.video ="video3.mp4"
-            this.data.title ="Ferrari vrooom"
+        if (this.data.link == 1) {
+            this.data.video = "video3.mp4"
+            this.data.title = "Ferrari vrooom"
         }
-        if(this.data.link == 2)
-        {
-            this.data.video ="video1.mp4"
-            this.data.title ="Mclaren Car Video"
+        if (this.data.link == 2) {
+            this.data.video = "video1.mp4"
+            this.data.title = "Mclaren Car Video"
         }
 
         this.videoElement = document.createElement("video");
