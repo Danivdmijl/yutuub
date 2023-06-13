@@ -17,9 +17,14 @@ body {
 }
 
 header {
-  width: 100%;
-  height: 2rem;
-  background: red;
+  width: 56%;
+  height: 5rem;
+  display: flex;
+  background: linear-gradient(to bottom left, #6941a6, #a86fff);
+  align-items: center;
+  justify-content: center;
+  font-size: 100%;
+  font-weight: 600;
 }
 
 .mainSection {
@@ -46,11 +51,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #6f3eb9;
+  background: linear-gradient(to bottom right, #a86fff, #6941a6);
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   gap: 2rem;
-  border: 0.15rem dashed black;
 }
 .mainSection__videoWrapper__section__Wrapper {
   display: flex;
@@ -87,7 +91,7 @@ header {
   gap: 2.5rem;
 }
 .commentSection__section {
-  background: #6f3eb9;
+  background: linear-gradient(to bottom right, #a86fff, #6941a6);
   height: 7rem;
   width: 59%;
   padding-left: 1.5rem;
@@ -112,7 +116,7 @@ header {
   height: 100%;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background: #6f3eb9;
+  background: linear-gradient(to bottom right, #904ff1, #6941a6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -183,6 +187,10 @@ header {
   }
 }
 @media screen and (max-width: 40rem) {
+  header {
+    font-size: 80%;
+    font-weight: 600;
+  }
   .mainSection__videoWrapper__section__circleFigure {
     width: 3rem;
     height: 3rem;

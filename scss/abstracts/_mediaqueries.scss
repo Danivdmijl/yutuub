@@ -70,6 +70,12 @@
 }
 
 @media screen and (max-width: 40rem){
+
+    header{
+        font-size: 80%;
+        font-weight: 600;
+    }
+
     .mainSection__videoWrapper__section__circleFigure{
         width: 3rem;
         height: 3rem;

@@ -1,5 +1,11 @@
 header{
-    width: 100%;
-    height: 2rem;
-    background: red;
+    width: 56%;
+    height: 5rem;
+    display: flex;
+    background: linear-gradient(to bottom left, #6941a6 , #a86fff);
+    align-items: center;
+    justify-content: center;
+    font-size: 100%;
+    font-weight: 600;
+    // border-top: solid #c09ef4  0.1rem;
 }

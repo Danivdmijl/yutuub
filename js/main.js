@@ -64,7 +64,20 @@ class Yubtub {
         this.app = app;
         this.renderer = new Renderer();
         this.main = new Main(this, data);
+        this.header = new Header(this);
         this.aside = new Aside(this, data);
+    }
+}
+
+class Header{
+    htmlElement;
+    yubtub;
+
+    constructor(yubtub){
+        this.yubtub = yubtub;
+        this.htmlElement = document.createElement("header");
+        this.htmlElement.innerText = "Yubtub - Dani van der Mijl";
+        this.yubtub.renderer.render("#js--MainSection", this.htmlElement);
     }
 }
 
