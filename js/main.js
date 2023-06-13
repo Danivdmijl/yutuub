@@ -157,7 +157,16 @@ class Comment {
         commentPlacerElement.classList.add("commentPlacer");
         commentPlacerElement.setAttribute("placeholder", "Type een comment..");
         commentPlacerElement.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
+
+            if(event.key === "Enter" && commentPlacerElement.value == ""){
+                event.preventDefault();
+                commentPlacerElement.value = "Hoezo plaats je een lege comment, spammer O.o";
+                const commentText = commentPlacerElement.value;
+                this.Comments.addComment(commentText);
+                commentPlacerElement.value = "";
+            }
+
+            if (event.key === "Enter"  && commentPlacerElement.value !== "") {
                 event.preventDefault();
                 const commentText = commentPlacerElement.value;
                 this.Comments.addComment(commentText);
