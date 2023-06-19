@@ -8,21 +8,16 @@ class Comment {
         commentPlacerElement.classList.add("commentPlacer");
         commentPlacerElement.setAttribute("placeholder", "Type een comment..");
         commentPlacerElement.addEventListener("keydown", (event) => {
-
-            if(event.key === "Enter" && commentPlacerElement.value == ""){
-                event.preventDefault();
-                commentPlacerElement.value = "Hoezo plaats je een lege comment, spammer O.o";
-                const commentText = commentPlacerElement.value;
-                this.Comments.addComment(commentText);
-                commentPlacerElement.value = "";
+          if (event.key === "Enter") {
+            event.preventDefault();
+            const commentText = commentPlacerElement.value.trim(); // Remove leading/trailing whitespace
+        
+            if (commentText !== "") {
+              this.Comments.addComment(commentText);
             }
-
-            if (event.key === "Enter"  && commentPlacerElement.value !== "") {
-                event.preventDefault();
-                const commentText = commentPlacerElement.value;
-                this.Comments.addComment(commentText);
-                commentPlacerElement.value = "";
-            }
+            
+            commentPlacerElement.value = "";
+          }
         });
 
         this.Comments.Main.yubtub.renderer.render(".commentSection", commentPlacerElement);
@@ -36,7 +31,7 @@ class Comment {
         circleElement.classList.add("commentSection__section__circle");
 
         const commentElement = document.createElement("h3");
-        commentElement.classList.add("comment");
+        commentElement.classList.add("commentSection__section__title");
         commentElement.innerText = comment;
 
         commentSectionElement.appendChild(circleElement);
